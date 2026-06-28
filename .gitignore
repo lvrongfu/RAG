@@ -1,0 +1,26 @@
+# 环境变量（含敏感信息）
+.env
+
+# Python 虚拟环境
+.venv/
+
+# Python 字节码缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# 日志文件
+logs/
+
+# 运行生成的输出文件
+output/
+
+# IDE 配置
+.vscode/
+
+# 测试用 PDF 文档（体积大，二进制文件）
+doc/
+
+# 操作系统生成文件
+Thumbs.db
+.DS_Store
