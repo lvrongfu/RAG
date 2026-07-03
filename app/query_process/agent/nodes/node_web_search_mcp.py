@@ -3,7 +3,7 @@ import json
 import asyncio
 from app.utils.task_utils import add_done_task, add_running_task
 from app.conf.bailian_mcp_config import mcp_config
-from agents.mcp import MCPServerSse
+from agents.mcp import MCPServerStreamableHttp
 from app.core.logger import logger
 
 async def mcp_call(query):
@@ -17,26 +17,27 @@ async def mcp_call(query):
     """
     
     # ==================================================================================
-    # 初始化百炼MCP SSE客户端
+    # 初始化百炼MCP Streamable HTTP 客户端
     # ----------------------------------------------------------------------------------
-    # MCPServerSse 是一个基于 SSE (Server-Sent Events) 协议的 MCP 客户端实现。
-    # 它的作用是连接到阿里云百炼提供的 MCP 服务端点，从而让我们可以像调用本地函数一样调用远程工具。
+    # MCPServerStreamableHttp 基于 Streamable HTTP 协议的 MCP 客户端实现（已替代旧版 SSE）。
+    # 它连接到阿里云百炼提供的 MCP 服务端点，实现远程工具的本地化调用。
     #
     # 参数解释：
     # name: 客户端名称，用于日志标识，方便调试。
     # params: 连接配置字典
-    #   - url: MCP 服务的 SSE 接口地址 (例如: .../mcps/WebSearch/sse)
-    #   - headers: HTTP 请求头，必须包含 Authorization 字段传入 API Key 进行鉴权。
+    #   - url: MCP 服务的接口地址 (新版: .../mcps/WebSearch/mcp，旧版 /sse 已废弃)
+    #   - headers: HTTP 请求头，使用 Bearer Token 鉴权
     #   - timeout: 连接建立和整体请求的超时时间。
     #   - sse_read_timeout: 读取 SSE 事件流的超时时间，防止流中断导致挂起。
     # ==================================================================================
-    search_mcp = MCPServerSse(
+    # Streamable HTTP 客户端（百炼 MCP 新版协议，已替代废弃的 SSE）
+    search_mcp = MCPServerStreamableHttp(
         name="search_mcp",
         params={
             "url": mcp_config.mcp_base_url,
-            "headers": {"Authorization": mcp_config.api_key},
+            "headers": {"Authorization": f"Bearer {mcp_config.api_key}"},
             "timeout": 300,
-            "sse_read_timeout": 300
+            # "sse_read_timeout": 300
         }
     )
 

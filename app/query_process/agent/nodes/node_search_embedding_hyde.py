@@ -152,6 +152,11 @@ def node_search_embedding_hyde(state):
 
     :param state: 会话状态字典，包含 session_id, rewritten_query, item_names 等
     :return: 包含 hyde_embedding_chunks (检索结果) 和 hyde_doc (假设文档) 的字典
+     {
+            "hyde_embedding_chunks": res[0] if res else [],
+            "hyde_doc": hyde_doc,
+        }
+    
     """
     logger.info("---HyDE (假设文档检索) 节点开始处理---")
     # 记录任务开始状态
@@ -226,7 +231,7 @@ if __name__ == "__main__":
         "session_id": "test_hyde_session_001",
         "original_query": "HAK 180 烫金机怎么操作？",
         "rewritten_query": "HAK 180 烫金机的具体操作步骤是什么？",
-        "item_names": ["HAK 180 烫金机"],
+        "item_names": ["HAK180烫金机D01WD7001-00"],
         "is_stream": False
     }
 

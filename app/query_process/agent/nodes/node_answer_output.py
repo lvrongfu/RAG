@@ -109,12 +109,14 @@ def step_2_construct_prompt(state: QueryGraphState) -> str:
       # 修正：MongoDB存储格式为 {"role": "user"/"assistant", "text": "..."}
       role = msg.get("role")
       text = msg.get("text")
+      current_history = ""
       if role == "user" and text:
-        history_str += f"用户: {text}\n"
+        current_history += f"用户: {text}\n"
       elif role == "assistant" and text:
-        history_str += f"助手: {text}\n"
+        current_history += f"助手: {text}\n"
         
-      used += len(history_str) + 2
+      history_str += current_history
+      used += len(current_history) + 2 # 有问题(已经改了)
       if used > MAX_CONTEXT_CHARS:
         break
   else:
@@ -418,7 +420,7 @@ if __name__ == "__main__":
         answer = result.get("answer")
         if answer and len(answer) > 10:
             print(f"[PASS] 答案生成成功 (长度: {len(answer)})")
-            print(f"答案预览: {answer[:50]}...")
+            print(f"答案: {answer}")
         else:
             print(f"[WARN] 答案生成可能异常 (Content: {answer})")
 

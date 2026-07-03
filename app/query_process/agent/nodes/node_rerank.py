@@ -153,7 +153,7 @@ def step_2_rerank_docs(state, doc_items):
         sentence_pairs = [[question, t] for t in texts]
         # 计算相关性得分
         logger.info("Step 2: 正在计算相关性得分...")
-        scores = reranker.compute_score(sentence_pairs)
+        scores = reranker.compute_score(sentence_pairs,normalize=True)
         # 将得分与文档配对并排序（按 score 降序）
         scored_docs = []
         for item, text, score in zip(doc_items, texts, scores):

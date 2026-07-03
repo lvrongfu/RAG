@@ -310,6 +310,7 @@ def step_7_write_history(state: Dict, session_id: str, history: List[Dict], rewr
 def node_item_name_confirm(state: QueryGraphState) -> QueryGraphState:
     """
     主节点函数：商品名称确认流程
+    更新state：state["item_names"] = confirmed state["rewritten_query"] = rewritten_query state["answer"] = answer final_state["history"] = history
     """
     logger.info(">>> node_item_name_confirm: 开始处理")
     
@@ -370,7 +371,8 @@ if __name__ == "__main__":
     # 模拟输入状态
     mock_state = {
         "session_id": "test_debug_session_001",
-        "original_query": "HAK 180 烫金机多少钱？",  # 针对用户提到的具体 case
+        # "original_query": "HAK 180 烫金机多少钱？",  # 针对用户提到的具体 case
+        "original_query": "烫金机多少钱？",   
         "is_stream": False,
         "item_names": []
     }

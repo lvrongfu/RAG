@@ -105,7 +105,7 @@ if __name__ == "__main__":
     test_state = {
         "session_id": "test_search_embedding_001",
         "rewritten_query": "HAK 180 烫金机使用说明",  # 模拟改写后的查询
-        "item_names": ["HAK 180 烫金机"],  # 模拟已确认的商品名
+        "item_names": ["HAK180烫金机D01WD7001-00"],  # 模拟已确认的商品名
         "is_stream": False
     }
 
